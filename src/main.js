@@ -1,7 +1,24 @@
+require('dotenv').config()
+
+const { GITHUB_ACCESS_TOKEN } = process.env
+
 const fs = require('fs')
 const { program } = require('commander')
+const { Octokit } = require('octokit')
 
 program.version('0.0.1')
+
+const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
+
+program
+  .command('me')
+  .description('Check my profile')
+  .action(async () => {
+    const {
+      data: { login },
+    } = await octokit.rest.users.getAuthenticated()
+    console.log('Hello, %s', login)
+  })
 
 program
   .command('list-bugs')
@@ -19,4 +36,5 @@ program
   .action(() => {
     console.log('Check PRs!')
   })
+
 program.parse()
