@@ -1,4 +1,4 @@
-# nodegitci
+# Node Git Cli
 
 Command Line Interface  
 (왜 필요한가? => DevOps 자동화에 필요)
